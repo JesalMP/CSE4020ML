@@ -1,0 +1,92 @@
+## 1. Regression models (for the following two questions, take the same data set.)
+
+
+### Pulling the dataset
+
+mydf = pd.read_csv("https://raw.githubusercontent.com/Shush25/myDatasets/main/USA_Housing.csv")
+mydf.head()
+
+mydf.shape
+
+mydf.isnull().sum()
+
+X = mydf.drop(['Price','Address'], axis =1)
+Y = mydf['Price']
+
+reg_pre_arr = [[61287.053179, 5.043143, 6.313321, 3.31, 12344.612343],
+               [53134.632179, 2.040512, 3.612121, 4.61, 62312.351321],
+               [83512.065379, 3.041234, 9.513221, 6.52, 12345.531234],
+               [56287.061329, 6.040515, 9.342121, 3.23, 35213.811235],
+               [67287.067349, 8.042345, 6.112341, 7.12, 51233.523123]]
+
+### (a) Train a Normal equation based SKlearn regressor with the chosen data set and predict the outcome for a five test data. Compute the parameters of the model and the performance measure of the model.
+
+mlr = LinaerRegressorModel(X,Y)
+
+mlr.predict(reg_pre_arr)
+
+Inference: We get a r2 score for train dataset as .91 and r2 score for test dataset as .89 which is very good. And we also predicted the price given all the other attributes using the sklearn library.
+
+## 2. Classification models (for the following four questions, take the same data set.)
+
+
+### Pulling the Dataset
+
+mydf = pd.read_csv("https://raw.githubusercontent.com/Shush25/myDatasets/main/gender_classification_v7.csv")
+
+mydf.shape
+
+mydf.head()
+
+mydf.isnull().sum()
+
+pre_arr = [[1, 11.3, 6.1, 1, 0, 1, 1],
+           [0, 13.2, 7.4, 0, 0, 0, 1],
+           [1, 8.4, 5.9, 0, 1, 1, 0],
+           [0, 9.6, 8.1, 0, 1, 0, 1],
+           [0, 10.4, 8.9, 1, 1, 1, 0]]
+
+### (a) Train a SVM based SKlearn Classifier with the chosen data set and predict the class for five test data. Compute the parameters of the model and the performance measure of the model.
+
+X = mydf.drop(['gender'], axis =1)
+Y = mydf['gender']
+
+svmodel = svmmodel(mydf,X,Y, 'poly', 2, False)
+
+print(svmodel.predict(pre_arr))
+
+### (b) Train a logistic regression based SKlearn Classifier with the chosen data set and predict the class for five test data. Compute the parameters of the model and the performance measure of the mode
+
+plt.style.use('ggplot')
+sns.catplot(x = 'gender', kind = 'count', data=mydf)
+
+headmap(mydf)
+
+logit_model = logisticRegression(X,Y)
+
+logit_model.predict(pre_arr)
+
+### (c) Train a decision tree based SKlearn Classifier with the chosen data set and predict the class for five test data. Compute the parameters of the model and the performance measure of the model
+
+#### Decision Tree
+
+decision_tree_model = DecisionTreeModel(X,Y,True)
+
+decision_tree_model.predict(pre_arr)
+
+#### Random Forest
+
+random_forest_model = RandomForestModel(X,Y)
+
+random_forest_model.predict(pre_arr)
+
+### (d) Train a Multi Layer Perceptron based SKlearn Classifier with the chosen data set and predict the class for five test data. Compute the parameters of the model and the performance measure of the model.
+
+
+mlp_model = MultiLayerPerceptionModel(X,Y)
+
+mlp_model.predict(pre_arr)
+
+### Inference
+
+From the Above experiments we can clearly observe that the logistic regression based model as well as decision tree model has the best accuracy score out of all the other models. Also decision tree model shows the best precision out of all the other model for our dataset.
